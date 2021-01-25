@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Head from 'next/head'
 import db from '../db.json'
 import Widget from '../src/Components/Widget'
 import Footer from '../src/Components/Footer'
@@ -28,8 +29,16 @@ const QuizContainer = styled.div`
 
 export default function Home() {
   return (
-    //<BackgroundImage>
     <QuizBackground backgroundImage={db.bg}>
+      
+      <Head>
+        <title>DoolpQuiz - Imersão React v2 Alura </title>
+        <meta property="og:image" content={db.bg}/>
+        <meta property="og:image:type" content="image/jpeg"/>
+        <meta property="og:image:width" content="1536"/>
+        <meta property="og:image:height" content="1208"/> 
+      </Head>
+      
       <QuizContainer>
 
         <QuizLogo/>
@@ -37,7 +46,7 @@ export default function Home() {
         <Widget>
           <Widget.Header>
             <h1>
-              olah
+              Doolp Quiz
             </h1>
           </Widget.Header>
           <Widget.Content>
@@ -54,12 +63,12 @@ export default function Home() {
             <p>dno cneoivq vrnoewn...</p>
           </Widget.Content>
         </Widget>
-
+        
         <Footer />
 
       </QuizContainer>
+
       <GitHubCorner projectUrl="https://github.com/omariosouto"/>
     </QuizBackground>
-    //</BackgroundImage>
   );
 }

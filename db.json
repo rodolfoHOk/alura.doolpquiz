@@ -40,5 +40,16 @@
       "success": "#4CAF50"
     },
     "borderRadius": "4px"
+  },
+  "theme_halloween": {
+    "colors": {
+      "primary": "#f75f1c",
+      "secondary": "#ff9a00",
+      "mainBg": "#881ee4",
+      "contrastText": "#000000",
+      "wrong": "#FF5722",
+      "success": "#4CAF50"
+    },
+    "borderRadius": "4px"
   }
 }

@@ -45,7 +45,7 @@ const theme = {
 }
 */
 
-const theme = db.theme;
+const theme = db.theme_halloween;
 
 export default function App({ Component, pageProps }) {
   return (
