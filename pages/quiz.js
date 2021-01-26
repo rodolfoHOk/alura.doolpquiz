@@ -1,7 +1,7 @@
-import { delBasePath } from 'next/dist/next-server/lib/router/router';
-import styled from 'styled-components'
-import QuizBackground from '../src/Components/QuizBackground'
-import db from '../db.json'
+import React from 'react';
+import styled from 'styled-components';
+import QuizBackground from '../src/Components/QuizBackground';
+import db from '../db.json';
 
 const QuizPageContainer = styled.div`
   width: 100%;
@@ -14,7 +14,7 @@ const QuizPageContainer = styled.div`
   }
 `;
 
-export default function Quiz(){
+export default function QuizPage() {
   return (
     <QuizBackground backgroundImage={db.bg}>
       <QuizPageContainer>

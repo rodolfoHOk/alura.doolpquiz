@@ -1,13 +1,16 @@
-import styled from 'styled-components'
-import Head from 'next/head'
-import db from '../db.json'
-import Widget from '../src/Components/Widget'
-import Footer from '../src/Components/Footer'
-import GitHubCorner from '../src/Components/GitHubCorner'
-import QuizBackground from '../src/Components/QuizBackground'
-import QuizLogo from '../src/Components/QuizLogo'
+import React from 'react';
+import styled from 'styled-components';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
 
-/* importado do arquivo agora
+import db from '../db.json';
+import Widget from '../src/Components/Widget';
+import Footer from '../src/Components/Footer';
+import GitHubCorner from '../src/Components/GitHubCorner';
+import QuizBackground from '../src/Components/QuizBackground';
+import QuizLogo from '../src/Components/QuizLogo';
+
+/* importado do arquivo agora - QuizBackgroung
 const BackgroundImage = styled.div`
   background-image: url(${db.bg});
   flex: 1;
@@ -28,20 +31,22 @@ const QuizContainer = styled.div`
 `;
 
 export default function Home() {
+  const router = useRouter();
+  const [name, setName] = React.useState('');
+  // console.log('Retorno do useState', name, setName);
+
   return (
     <QuizBackground backgroundImage={db.bg}>
-      
+
       <Head>
         <title>DoolpQuiz - Imersão React v2 Alura </title>
-        <meta property="og:image" content={db.bg}/>
-        <meta property="og:image:type" content="image/jpeg"/>
-        <meta property="og:image:width" content="1536"/>
-        <meta property="og:image:height" content="1208"/> 
+        <meta property="og:image" content={db.bg} />
+        <meta property="og:image:type" content="image/jpeg" />
       </Head>
-      
+
       <QuizContainer>
 
-        <QuizLogo/>
+        <QuizLogo />
 
         <Widget>
           <Widget.Header>
@@ -50,7 +55,25 @@ export default function Home() {
             </h1>
           </Widget.Header>
           <Widget.Content>
-            <p>dno cneoivq vrnoewn...</p>
+            <form onSubmit={function Submeter(infoDoEvento) {
+              infoDoEvento.preventDefault();
+              router.push(`/quiz?name=${name}`);
+              // console.log('Submetendo por react');
+            }}
+            >
+              <input
+                placeholder="Nome ou Apelido Aqui"
+                onChange={function changed(infoDoEvento) {
+                  // console.log(infoDoEvento.target.value);
+                  setName(infoDoEvento.target.value);
+                }}
+              />
+              <button type="submit" disabled={name.length === 0}>
+                Jogar:
+                {'  '}
+                {name}
+              </button>
+            </form>
           </Widget.Content>
         </Widget>
 
@@ -63,12 +86,12 @@ export default function Home() {
             <p>dno cneoivq vrnoewn...</p>
           </Widget.Content>
         </Widget>
-        
+
         <Footer />
 
       </QuizContainer>
 
-      <GitHubCorner projectUrl="https://github.com/omariosouto"/>
+      <GitHubCorner projectUrl="https://github.com/omariosouto" />
     </QuizBackground>
   );
 }
