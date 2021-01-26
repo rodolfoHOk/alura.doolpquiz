@@ -37,7 +37,8 @@
       "mainBg": "#171B35",
       "contrastText": "#FFFFFF",
       "wrong": "#FF5722",
-      "success": "#4CAF50"
+      "success": "#4CAF50",
+      "button": "#E91E63"
     },
     "borderRadius": "4px"
   },
@@ -48,7 +49,8 @@
       "mainBg": "#881ee4",
       "contrastText": "#000000",
       "wrong": "#FF5722",
-      "success": "#4CAF50"
+      "success": "#4CAF50",
+      "button": "#E91E63"
     },
     "borderRadius": "4px"
   }

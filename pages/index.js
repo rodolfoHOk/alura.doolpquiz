@@ -9,6 +9,8 @@ import Footer from '../src/Components/Footer';
 import GitHubCorner from '../src/Components/GitHubCorner';
 import QuizBackground from '../src/Components/QuizBackground';
 import QuizLogo from '../src/Components/QuizLogo';
+import Button from '../src/Components/Button';
+import Input from '../src/Components/Input';
 
 /* importado do arquivo agora - QuizBackgroung
 const BackgroundImage = styled.div`
@@ -34,6 +36,10 @@ export default function Home() {
   const router = useRouter();
   const [name, setName] = React.useState('');
   // console.log('Retorno do useState', name, setName);
+  const changed = (infoDoEvento) => {
+    // console.log(infoDoEvento.target.value);
+    setName(infoDoEvento.target.value);
+  };
 
   return (
     <QuizBackground backgroundImage={db.bg}>
@@ -55,24 +61,24 @@ export default function Home() {
             </h1>
           </Widget.Header>
           <Widget.Content>
+            <p>
+              Divirta-se criando e jogando seu AluraQuiz!
+            </p>
             <form onSubmit={function Submeter(infoDoEvento) {
               infoDoEvento.preventDefault();
               router.push(`/quiz?name=${name}`);
               // console.log('Submetendo por react');
             }}
             >
-              <input
+              <Input
                 placeholder="Nome ou Apelido Aqui"
-                onChange={function changed(infoDoEvento) {
-                  // console.log(infoDoEvento.target.value);
-                  setName(infoDoEvento.target.value);
-                }}
+                onChange={changed}
               />
-              <button type="submit" disabled={name.length === 0}>
+              <Button type="submit" disabled={name.length === 0}>
                 Jogar:
                 {'  '}
                 {name}
-              </button>
+              </Button>
             </form>
           </Widget.Content>
         </Widget>
@@ -91,7 +97,7 @@ export default function Home() {
 
       </QuizContainer>
 
-      <GitHubCorner projectUrl="https://github.com/omariosouto" />
+      <GitHubCorner projectUrl="https://github.com/rodolfoHOk/doolpquiz" />
     </QuizBackground>
   );
 }
