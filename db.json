@@ -6,24 +6,86 @@
   "questions": [
     {
       "image": "https://media.giphy.com/media/xUOxf3yDKCuwpOlT3i/giphy.gif",
-      "title": "Como fazer um seletor por id via CSS?",
-      "description": "Essa é pra aquecer",
+      "title": "Quais são o menor e o maior país do mundo?",
+      "description": "Geografia",
       "answer": 2,
       "alternatives": [
-        ".elemento",
-        "*elemento",
-        "#elemento",
-        "%elemento"
+        "Nauru e China",
+        "Mônaco e Canadá",
+        "Vaticano e Rússia",
+        "Malta e Estados Unidos"
       ]
     },
     {
       "image": "https://media.giphy.com/media/13FrpeVH09Zrb2/giphy.gif",
-      "title": "Como fazer um background gradiente com css?",
-      "description": "Faz tempo em haha",
+      "title": "Quanto tempo a luz do Sol demora para chegar à Terra?",
+      "description": "Ciências",
+      "answer": 1,
+      "alternatives": [
+        "4 horas",
+        "8 minutos",
+        "1/4 hora",
+        "12 minutos"
+      ]
+    },
+    {
+      "image": "https://media.giphy.com/media/xUOxf3yDKCuwpOlT3i/giphy.gif",
+      "title": "'It is six twenty' or 'twenty past six' equals?",
+      "description": "Inglês",
+      "answer": 3,
+      "alternatives": [
+        "6:02",
+        "12:06",
+        "12:20",
+        "6:20"
+      ]
+    },
+    {
+      "image": "https://media.giphy.com/media/13FrpeVH09Zrb2/giphy.gif",
+      "title": "Como é a conjugação do verbo caber na 1.ª pessoa do singular do presente do indicativo?",
+      "description": "Português",
       "answer": 0,
       "alternatives": [
-         "background: linear-gradient(#e66465, #9198e5);",
-         "background: gradient(#e66465, #9198e5);"
+        "Eu caibo",
+        "Eu cabo",
+        "Que eu caiba",
+        "Nenhuma das alternativas"
+      ]
+    },
+    {
+      "image": "https://media.giphy.com/media/xUOxf3yDKCuwpOlT3i/giphy.gif",
+      "title": "Quem pintou o teto da capela sistina?",
+      "description": "Artes",
+      "answer": 2,
+      "alternatives": [
+        "Leonardo da Vinci",
+        "Sandro Botticelli",
+        "Michelangelo",
+        "Aleijadinho"
+      ]
+    },
+    {
+      "image": "https://media.giphy.com/media/13FrpeVH09Zrb2/giphy.gif",
+      "title": "Em que período da pré-história o fogo foi descoberto?",
+      "description": "História",
+      "answer": 1,
+      "alternatives": [
+        "Neolítico",
+        "Paleolítico",
+        "Idade Média",
+        "Período da Pedra Polida"
+      ]
+    },
+    {
+      "image": "https://media.giphy.com/media/xUOxf3yDKCuwpOlT3i/giphy.gif",
+      "title": "Qual das alternativas abaixo apenas contêm classes de palavras?",
+      "description": "Português",
+      "answer": 3,
+      "alternatives": [
+        "Vogais, semivogais e consoantes",
+        "Fonologia, Morfologia e Sintaxe",
+        "Hiatos, ditongos e tritongos",
+        "Substantivo, verbo e preposição"
       ]
     }
   ],

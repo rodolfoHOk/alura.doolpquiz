@@ -1,94 +1,242 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import QuizBackground from '../src/Components/QuizBackground';
+import QuizContainer from '../src/Components/QuizContainer';
 import QuizLogo from '../src/Components/QuizLogo';
 import Widget from '../src/Components/Widget';
 import Button from '../src/Components/Button';
 import db from '../db.json';
 
-const QuizPageContainer = styled.div`
-  width: 100%;
-  max-width: 350px;
-  padding-top: 45px;
-  margin: auto 10%;
-  @media screen and (max-width: 500px) {
-    margin: auto;
-    padding: 15px;
-  }
-`;
+function LoadingWidget() {
+  return (
+    <Widget>
+      <Widget.Header>
+        Carregando...
+      </Widget.Header>
+
+      <Widget.Content>
+        [Desafio do Loading]
+      </Widget.Content>
+    </Widget>
+  );
+}
+
+function QuestionWidget({
+  question,
+  totalQuestions,
+  questionIndex,
+  onSubmit,
+  acertos,
+  setAcertos,
+}) {
+  const questionId = `question_${questionIndex}`;
+  const [resposta, setResposta] = useState(null);
+
+  const quizStates = {
+    PERGUNTANDO: 'PERGUNTANDO',
+    ACERTOU: 'ACERTOU',
+    ERROU: 'ERROU',
+  };
+
+  const [quizState, setQuizState] = useState(quizStates.PERGUNTANDO);
+
+  return (
+    <Widget>
+      <Widget.Header>
+        {/* <BackLinkArrow href="/" /> */}
+        <h3>
+          {`Pergunta ${questionIndex + 1} de ${totalQuestions}`}
+        </h3>
+      </Widget.Header>
+
+      <img
+        alt="Descricao da Imagem"
+        style={{
+          width: '100%',
+          height: '150px',
+          objectFit: 'cover',
+        }}
+        src={question.image}
+      />
+
+      <Widget.Content>
+        <h2>
+          {question.title}
+        </h2>
+        <p>
+          {question.description}
+        </p>
+
+        <form
+          onSubmit={(infoDoEvento) => {
+            infoDoEvento.preventDefault();
+            if (resposta === question.answer) {
+              setQuizState(quizStates.ACERTOU);
+              setAcertos(acertos + 1);
+            } else {
+              setQuizState(quizStates.ERROU);
+            }
+            setTimeout(() => {
+              setQuizState(quizStates.PERGUNTANDO);
+              setResposta(null);
+              onSubmit();
+            }, 2 * 1000);
+          }}
+        >
+          {question.alternatives.map((alternative, alternativeIndex) => {
+            const alternativeId = `alternative_${alternativeIndex}`;
+            return (
+              <>
+                { resposta === alternativeIndex && (
+                  <Widget.Topic.Selected
+                    as="label"
+                    htmlFor={alternativeId}
+                  >
+                    <input
+                      type="radio"
+                      id={alternativeId}
+                      name={questionId}
+                      value={alternativeIndex}
+                      onChange={() => {
+                        setResposta(alternativeIndex);
+                      }}
+                    />
+                    {alternative}
+                  </Widget.Topic.Selected>
+                )}
+
+                { resposta !== alternativeIndex && (
+                  <Widget.Topic
+                    as="label"
+                    htmlFor={alternativeId}
+                  >
+                    <input
+                      type="radio"
+                      id={alternativeId}
+                      name={questionId}
+                      value={alternativeIndex}
+                      onChange={() => {
+                        setResposta(alternativeIndex);
+                      }}
+                    />
+                    {alternative}
+                  </Widget.Topic>
+                )}
+              </>
+            );
+          })}
+
+          { quizState === quizStates.PERGUNTANDO && (
+            <Button type="submit" disabled={resposta === null}>
+              Confirmar
+            </Button>
+          )}
+
+          { quizState === quizStates.ACERTOU && (
+            <Button.Green type="submit" disabled={resposta === null}>
+              Correto
+            </Button.Green>
+          )}
+
+          { quizState === quizStates.ERROU && (
+            <Button.Red type="submit" disabled={resposta === null}>
+              Errado
+            </Button.Red>
+          )}
+
+        </form>
+
+        {/* serve para visualizar em json o que há na varialvel question
+        <pre>
+          {JSON.stringify(question, null, 4)}
+        </pre>
+        */}
+
+      </Widget.Content>
+    </Widget>
+  );
+}
+
+const screenStates = {
+  LOADING: 'LOADING',
+  QUIZ: 'QUIZ',
+  RESULT: 'RESULT',
+};
 
 export default function QuizPage() {
   const router = useRouter();
   const { name } = router.query;
-  const voltar = '<';
-  const [resposta, setResposta] = useState(null);
-  const changed = (infoDoEvento) => {
-    setResposta(infoDoEvento.target.value);
-  };
-  const submeter = (infoDoEvento) => {
-    infoDoEvento.preventDefault();
-    setResposta(infoDoEvento.target.value);
-    console.log('Submentendo a ', resposta);
-  };
+
+  const [screenState, setScreenState] = useState(screenStates.LOADING);
+  const totalQuestions = db.questions.length;
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const questionIndex = currentQuestion;
+  const question = db.questions[questionIndex];
+  const [acertos, setAcertos] = useState(0);
+
+  // Estados || States
+  // React.useEffect
+  // [React chama de Efeitos || Effects]
+  // nasce === didMount
+  // atualizado === willUpdate
+  // morre === willUnmount
+
+  React.useEffect(() => {
+    // fetch() ...
+    setTimeout(() => {
+      setScreenState(screenStates.QUIZ);
+    }, 1 * 1000);
+  }, []);
+
+  function handleSubmitQuiz() {
+    const nextQuestion = questionIndex + 1;
+    if (nextQuestion < totalQuestions) {
+      setCurrentQuestion(nextQuestion);
+    } else {
+      setScreenState(screenStates.RESULT);
+    }
+  }
 
   return (
     <QuizBackground backgroundImage={db.bg}>
-
-      <Head>
-        <title>DoolpQuiz - Imersão React v2 Alura </title>
-        <meta property="og:image" content={db.bg} />
-        <meta property="og:image:type" content="image/jpeg" />
-      </Head>
-
-      <QuizPageContainer>
-
+      <QuizContainer>
         <QuizLogo />
-
         <Widget>
           <Widget.Content>
             <h2>
-              Olá
-              {' '}
-              {name}
+              {`Olá ${name}`}
             </h2>
           </Widget.Content>
         </Widget>
 
-        <Widget>
-          <Widget.Header>
-            <h1>
-              <a href="/" style={{ 'text-decoration': 'none', color: '#FFFFFF' }}>{voltar}</a>
-              {' '}
-              Pergunta x de y
-            </h1>
-          </Widget.Header>
-          <Widget.Content>
-            <h1> Perguntando a pergunta x</h1>
-            <p> Observações da pergunta x</p>
-            <form onSubmit={submeter}>
-              <input type="radio" id="opcaoA" name="resposta" value="respostaA" onChange={changed} />
-              <label htmlFor="opcaoA">Opcao Resposta A</label>
-              <br />
-              <input type="radio" id="opcaoB" name="resposta" value="respostaB" onChange={changed} />
-              <label htmlFor="opcaoB">Opcao Resposta B</label>
-              <br />
-              <input type="radio" id="opcaoC" name="resposta" value="respostaC" onChange={changed} />
-              <label htmlFor="opcaoC">Opcao Resposta C</label>
-              <br />
-              <input type="radio" id="opcaoD" name="resposta" value="respostaD" onChange={changed} />
-              <label htmlFor="opcaoD">Opcao Resposta D</label>
-              <br />
-              <Button type="submit" disabled={resposta === null}>
-                Confirmar
-              </Button>
-            </form>
-          </Widget.Content>
-        </Widget>
+        { screenState === screenStates.LOADING && <LoadingWidget /> }
 
-      </QuizPageContainer>
+        { screenState === screenStates.QUIZ && (
+          <QuestionWidget
+            question={question}
+            totalQuestions={totalQuestions}
+            questionIndex={questionIndex}
+            onSubmit={handleSubmitQuiz}
+            acertos={acertos}
+            setAcertos={setAcertos}
+          />
+        )}
+
+        { screenState === screenStates.RESULT && (
+          <Widget>
+            <Widget.Header>
+              Resultado
+            </Widget.Header>
+
+            <Widget.Content>
+              <p>{`Parabéns vc acertou ${acertos} questões!`}</p>
+            </Widget.Content>
+          </Widget>
+        )}
+
+      </QuizContainer>
     </QuizBackground>
   );
 }

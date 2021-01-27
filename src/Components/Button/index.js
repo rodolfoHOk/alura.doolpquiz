@@ -1,31 +1,41 @@
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Button = styled.button`
-  
-  background: #E91E63;
+  background-color: ${({ theme }) => theme.colors.secondary};
+  color: ${({ theme }) => theme.colors.contrastText};
   width: 100%;
-  margin-top: 25px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  
-  border-radius: 4px;
-  border-color: #E91E63;
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.12), 0px 2px 2px rgba(0, 0, 0, 0.24);
-
-  color: #FFFFFF;
-  font-size: 14px;
+  padding: 10px 16px;
+  border-radius: ${({ theme }) => theme.borderRadius};
+  border: 0;
   font-weight: bold;
-  text-align: center;
-  letter-spacing: 1.25px;
+  font-size: 14px;
+  line-height: 1;
   text-transform: uppercase;
-
-  :disabled {
-    border-color: #979797;
-    background-color: #979797;
+  outline: 0;
+  transition: .3s;
+  cursor: pointer;
+  &:hover,
+  &:focus {
+    opacity: .5;
   }
-
+  &:disabled {
+    background-color: #979797;
+    cursor: not-allowed;
+  }
 `;
+
+Button.Green = styled(Button)`
+  background-color: ${({ theme }) => theme.colors.success};
+`;
+
+Button.Red = styled(Button)`
+  background-color: ${({ theme }) => theme.colors.wrong};
+`;
+
+Button.propTypes = {
+  type: PropTypes.oneOf(['submit', 'type', 'button']).isRequired,
+  children: PropTypes.node.isRequired,
+};
 
 export default Button;
