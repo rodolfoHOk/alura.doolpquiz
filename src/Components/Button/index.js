@@ -25,14 +25,6 @@ const Button = styled.button`
   }
 `;
 
-Button.Green = styled(Button)`
-  background-color: ${({ theme }) => theme.colors.success};
-`;
-
-Button.Red = styled(Button)`
-  background-color: ${({ theme }) => theme.colors.wrong};
-`;
-
 Button.propTypes = {
   type: PropTypes.oneOf(['submit', 'type', 'button']).isRequired,
   children: PropTypes.node.isRequired,
