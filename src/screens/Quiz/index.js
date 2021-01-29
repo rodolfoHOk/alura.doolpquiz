@@ -1,14 +1,13 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import QuizBackground from '../src/Components/QuizBackground';
-import QuizContainer from '../src/Components/QuizContainer';
-import QuizLogo from '../src/Components/QuizLogo';
-import Widget from '../src/Components/Widget';
-import Button from '../src/Components/Button';
-import AlternativesForm from '../src/Components/AlternativesForm';
-import db from '../db.json';
+import QuizBackground from '../../Components/QuizBackground';
+import QuizContainer from '../../Components/QuizContainer';
+import QuizLogo from '../../Components/QuizLogo';
+import Widget from '../../Components/Widget';
+import Button from '../../Components/Button';
+import AlternativesForm from '../../Components/AlternativesForm';
+import BackLinkArrow from '../../Components/BackLinkArrow';
 
 function LoadingWidget() {
   return (
@@ -69,7 +68,7 @@ function QuestionWidget({
   return (
     <Widget>
       <Widget.Header>
-        {/* <BackLinkArrow href="/" /> */}
+        <BackLinkArrow href="/" />
         <h3>
           {`Pergunta ${questionIndex + 1} de ${totalQuestions}`}
         </h3>
@@ -156,15 +155,15 @@ const screenStates = {
   RESULT: 'RESULT',
 };
 
-export default function QuizPage() {
+export default function QuizPage({ externalQuestions, externalBg }) {
   const router = useRouter();
   const { name } = router.query;
 
   const [screenState, setScreenState] = useState(screenStates.LOADING);
-  const totalQuestions = db.questions.length;
+  const totalQuestions = externalQuestions.length;
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const questionIndex = currentQuestion;
-  const question = db.questions[questionIndex];
+  const question = externalQuestions[questionIndex];
   const [results, setResults] = useState([]);
 
   function addResult(result) {
@@ -198,7 +197,7 @@ export default function QuizPage() {
   }
 
   return (
-    <QuizBackground backgroundImage={db.bg}>
+    <QuizBackground backgroundImage={externalBg}>
       <QuizContainer>
         <QuizLogo />
         <Widget>
