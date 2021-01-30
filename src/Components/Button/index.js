@@ -25,6 +25,21 @@ const Button = styled.button`
   }
 `;
 
+Button.External = styled(Button)`
+  background-color: ${({ theme }) => `${theme.colors.primary}40`};
+  text-transform: none;
+  text-align: left;
+  &:disabled {
+    background-color: #97979740;
+  }
+  a {
+    text-decoration: none;
+    color: ${({ theme }) => theme.colors.contrastText};
+    font-weight: 400;
+    font-size: 16px;
+  }
+`;
+
 Button.propTypes = {
   type: PropTypes.oneOf(['submit', 'type', 'button']).isRequired,
   children: PropTypes.node.isRequired,

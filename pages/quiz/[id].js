@@ -31,8 +31,10 @@ export async function getServerSideProps(context) {
       throw new Error('Falha em pegar os dados');
     })
     .then((respostaConvertidaEmObjeto) => respostaConvertidaEmObjeto)
-    .catch((Error) => {
-      console.error(Error);
+    .catch((error) => {
+      // console.error(Error);
+      // eslint-disable-next-line no-alert
+      alert(error);
     });
 
   // console.log('dbExterno', dbExterno);

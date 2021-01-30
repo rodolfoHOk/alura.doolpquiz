@@ -105,15 +105,21 @@ export default function Home() {
                     key={linkId}
                   >
                     <Widget.Topic
-                      as={Link}
-                      href={`/quiz/${projectName}___${gitHubUser}`}
+                      as={Button.External}
+                      disabled={name.length === 0}
                     >
-                      {`${gitHubUser}/${projectName}`}
+                      <Link
+                        href={`/quiz/${projectName}___${gitHubUser}?name=${name}`}
+                      >
+                        {`${gitHubUser}/${projectName}`}
+                      </Link>
                     </Widget.Topic>
                   </li>
                 );
               })}
             </ul>
+
+            { name.length === 0 && <p style={{ 'text-align': 'right' }}>* Digite o nome ou apelido</p> }
 
           </Widget.Content>
         </Widget>
@@ -122,8 +128,8 @@ export default function Home() {
           as={motion.footer}
           transition={{ delay: 1, duration: 0.5 }}
           variants={{
-            show: { opacity: 1 },
-            hidden: { opacity: 0 },
+            show: { opacity: 1, x: '0' },
+            hidden: { opacity: 0, x: '100%' },
           }}
           initial="hidden"
           animate="show"
