@@ -26,4 +26,4 @@
 
 ## 🔥 Deployed URL 🔗
 
-https://alurakut-rodolfohok.vercel.app/
+https://doolpquiz-git-main-rodolfohok.vercel.app/
